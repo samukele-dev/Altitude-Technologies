@@ -317,121 +317,130 @@ const ProductsPage = () => {
                 </main>
 
                 {/* --- Quick View Modal (same as before, but ensure styling is consistent) --- */}
-                {showModal && selectedProduct && (
-                    <div className="wrap-modal1 js-modal1 show-modal1">
-                        <div className="overlay-modal1 js-hide-modal1" onClick={closeModal}></div>
-                        <div className="container">
-                            <div className="bg0 p-lr-15 p-tb-27 respon3">
-                                <button className="btn-close-modal hov-btn3 trans-04" onClick={closeModal}>
-                                    &times;
-                                </button>
-                                <div className="row">
-                                    <div className="col-md-6 col-lg-7 p-b-30">
-                                        <div className="p-l-25 p-lr-0-lg">
-                                            <div className="wrap-slick3 flex-sb flex-w">
-                                                <img src={selectedProduct.imageUrl} alt={selectedProduct.name} style={{ maxWidth: '100%', height: 'auto' }} />
+            {showModal && selectedProduct && (
+                <div className="wrap-modal1 js-modal1 show-modal1">
+                    <div className="overlay-modal1 js-hide-modal1" onClick={closeModal}></div>
+                    <div className="container">
+                        <div className="bg0 p-lr-15 p-tb-27 respon3">
+                            <button className="btn-close-modal hov-btn3 trans-04" onClick={closeModal}>
+                                &times;
+                            </button>
+                            <div className="row">
+                                <div className="col-md-6 col-lg-7 p-b-30">
+                                    <div className="p-l-25 p-lr-0-lg">
+                                        <div className="wrap-slick3 flex-sb flex-w">
+                                            {/* Use selectedProduct.imageUrl here */}
+                                            <img src={selectedProduct.imageUrl} alt={selectedProduct.name} style={{ maxWidth: '100%', height: 'auto' }} />
+                                        </div>
+
+                                        <div className="product-details-tabs p-t-40">
+                                            <div className="tab-buttons flex-w flex-c-m p-b-15">
+                                                <button
+                                                    className={`tab-button ${activeModalTab === 'description' ? 'active' : ''}`}
+                                                    onClick={() => setActiveModalTab('description')}
+                                                >
+                                                    Description
+                                                </button>
+                                                <button
+                                                    className={`tab-button ${activeModalTab === 'reviews' ? 'active' : ''}`}
+                                                    onClick={() => setActiveModalTab('reviews')}
+                                                >
+                                                    Reviews ({selectedProduct.reviews ? selectedProduct.reviews.length : 0})
+                                                </button>
                                             </div>
 
-                                            <div className="product-details-tabs p-t-40">
-                                                <div className="tab-buttons flex-w flex-c-m p-b-15">
-                                                    <button
-                                                        className={`tab-button ${activeModalTab === 'description' ? 'active' : ''}`}
-                                                        onClick={() => setActiveModalTab('description')}
-                                                    >
-                                                        Description
-                                                    </button>
-                                                    <button
-                                                        className={`tab-button ${activeModalTab === 'reviews' ? 'active' : ''}`}
-                                                        onClick={() => setActiveModalTab('reviews')}
-                                                    >
-                                                        Reviews ({selectedProduct.reviews ? selectedProduct.reviews.length : 0})
-                                                    </button>
-                                                </div>
+                                            <div className="tab-content">
+                                                {activeModalTab === 'description' && (
+                                                    <div className="description-content stext-102 cl3">
+                                                        <p>{selectedProduct.fullDescription}</p>
+                                                    </div>
+                                                )}
 
-                                                <div className="tab-content">
-                                                    {activeModalTab === 'description' && (
-                                                        <div className="description-content stext-102 cl3">
-                                                            <p>{selectedProduct.fullDescription}</p>
-                                                        </div>
-                                                    )}
-
-                                                    {activeModalTab === 'reviews' && (
-                                                        <div className="reviews-content">
-                                                            {selectedProduct.reviews && selectedProduct.reviews.length > 0 ? (
-                                                                selectedProduct.reviews.map((review) => (
-                                                                    <div key={review.id} className="review-item p-b-20 p-t-20">
-                                                                        <div className="flex-w flex-sb-m p-b-8">
-                                                                            <span className="mtext-107 cl2 p-r-20">{review.author}</span>
-                                                                            <span className="stext-102 cl3">{review.date}</span>
-                                                                        </div>
-                                                                        <span className="stext-102 cl3 p-b-5">Rating: {review.rating} / 5</span>
-                                                                        <p className="stext-102 cl3">{review.comment}</p>
+                                                {activeModalTab === 'reviews' && (
+                                                    <div className="reviews-content">
+                                                        {selectedProduct.reviews && selectedProduct.reviews.length > 0 ? (
+                                                            selectedProduct.reviews.map((review) => (
+                                                                <div key={review.id} className="review-item p-b-20 p-t-20">
+                                                                    <div className="flex-w flex-sb-m p-b-8">
+                                                                        <span className="mtext-107 cl2 p-r-20">{review.author}</span>
+                                                                        <span className="stext-102 cl3">{review.date}</span>
                                                                     </div>
-                                                                ))
-                                                            ) : (
-                                                                <p className="stext-102 cl3">No reviews yet. Be the first to review this product!</p>
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                </div>
+                                                                    <span className="stext-102 cl3 p-b-5">Rating: {review.rating} / 5</span>
+                                                                    <p className="stext-102 cl3">{review.comment}</p>
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <p className="stext-102 cl3">No reviews yet. Be the first to review this product!</p>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="col-md-6 col-lg-5 p-b-30">
-                                        <div className="p-r-50 p-t-5 p-lr-0-lg">
-                                            <h4 className="mtext-105 cl2 js-name-detail p-b-14">
-                                                {selectedProduct.name}
-                                            </h4>
-                                            <span className="mtext-106 cl2">
-                                                R{parseFloat(selectedProduct.price).toFixed(2)}
-                                            </span>
-                                            <p className="stext-102 cl3 p-t-23">
-                                                {selectedProduct.description || 'No short description available.'}
-                                            </p>
+                                <div className="col-md-6 col-lg-5 p-b-30">
+                                    <div className="p-r-50 p-t-5 p-lr-0-lg">
+                                        <h4 className="mtext-105 cl2 js-name-detail p-b-14">
+                                            {selectedProduct.name}
+                                        </h4>
+                                        <span className="mtext-106 cl2">
+                                            R{parseFloat(selectedProduct.price).toFixed(2)}
+                                        </span>
+                                        <p className="stext-102 cl3 p-t-23">
+                                            {selectedProduct.description || 'No short description available.'}
+                                        </p>
 
-                                            <div className="p-t-33">
-                                                <div className="flex-w flex-r-m p-b-10">
-                                                    <div className="size-204 flex-w flex-m respon6-next">
-                                                        <span className="mtext-106 cl2 p-r-10">Stock:</span>
-                                                        <span className={`stext-105 ${selectedProduct.stock > 0 ? 'cl-success' : 'cl-danger'}`}>
-                                                            {selectedProduct.stock > 0 ? `${selectedProduct.stock} in stock` : 'Out of Stock'}
-                                                        </span>
-                                                    </div>
+                                        <div className="p-t-33">
+                                            <div className="flex-w flex-r-m p-b-10">
+                                                <div className="size-204 flex-w flex-m respon6-next">
+                                                    <span className="mtext-106 cl2 p-r-10">Stock:</span>
+                                                    <span className={`stext-105 ${selectedProduct.stock > 0 ? 'cl-success' : 'cl-danger'}`}>
+                                                        {selectedProduct.stock > 0 ? `${selectedProduct.stock} in stock` : 'Out of Stock'}
+                                                    </span>
                                                 </div>
+                                            </div>
 
-                                                <div className="flex-w flex-r-m p-b-10">
-                                                    <div className="size-204 flex-w flex-m respon6-next">
+                                            <div className="flex-w flex-r-m p-b-10">
+                                                <div className="size-204 flex-w flex-m respon6-next">
+                                                    <div
+                                                        className="wrap-num-product flex-w m-r-20 m-tb-10"
+                                                    >
                                                         <div
-                                                            className="wrap-num-product flex-w m-r-20 m-tb-10"
+                                                            className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
+                                                            onClick={decrementQuantity}
+                                                            style={{ cursor: quantity <= 1 ? 'not-allowed' : 'pointer' }}
                                                         >
-                                                            <div
-                                                                className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
-                                                                onClick={decrementQuantity}
-                                                                style={{ cursor: quantity <= 1 ? 'not-allowed' : 'pointer' }}
-                                                            >
-                                                                <i className="fs-16 zmdi zmdi-minus">-</i>
-                                                            </div>
+                                                            <i className="fs-16 zmdi zmdi-minus">-</i>
+                                                        </div>
 
-                                                            <input
-                                                                className="mtext-104 cl3 txt-center num-product"
-                                                                type="number"
-                                                                name="num-product"
-                                                                value={quantity}
-                                                                onChange={handleQuantityChange}
-                                                                min="1"
-                                                                max={selectedProduct.stock > 0 ? selectedProduct.stock : 1}
-                                                                disabled={selectedProduct.stock <= 0}
-                                                            />
+                                                        <input
+                                                            className="mtext-104 cl3 txt-center num-product"
+                                                            type="number"
+                                                            name="num-product"
+                                                            value={quantity}
+                                                            onChange={handleQuantityChange}
+                                                            min="1"
+                                                            max={selectedProduct.stock > 0 ? selectedProduct.stock : 1}
+                                                            disabled={selectedProduct.stock <= 0}
+                                                        />
 
-                                                            <div
-                                                                className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
-                                                                onClick={incrementQuantity}
-                                                                style={{ cursor: quantity >= selectedProduct.stock || selectedProduct.stock <= 0 ? 'not-allowed' : 'pointer' }}
-                                                            >
-                                                                <i className="fs-16 zmdi zmdi-plus">+</i>
-                                                                </div>
+                                                        <div
+                                                            className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
+                                                            onClick={incrementQuantity}
+                                                            style={{ cursor: quantity >= selectedProduct.stock || selectedProduct.stock <= 0 ? 'not-allowed' : 'pointer' }}
+                                                        >
+                                                            <i className="fs-16 zmdi zmdi-plus">+</i>
+                                                        </div>
                                                     </div>
+
+                                                    <button
+                                                        className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+                                                        onClick={handleAddToCart}
+                                                        disabled={selectedProduct.stock <= 0 || quantity > selectedProduct.stock || quantity <= 0}
+                                                    >
+                                                        ADD TO CART
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

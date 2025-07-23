@@ -556,7 +556,6 @@
 .p-t-23 { padding-top: 23px; }
 .p-t-33 { padding-top: 33px; }
 
-/* ... other CSS ... */
 
 /* Quantity Selector Styles */
 .wrap-num-product {
@@ -624,7 +623,7 @@
     flex-grow: 1;
     max-width: 200px; /* Example max width */
     height: 40px;
-    border-radius: 25px;
+    border-radius: 0.25rem; 
     font-weight: 600;
 }
 
