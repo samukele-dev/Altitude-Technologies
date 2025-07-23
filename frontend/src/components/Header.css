@@ -1,0 +1,220 @@
+/* src/components/Header.css */
+.app-header {
+    background-color: #2c3e50; /* Dark background color */
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    position: sticky; /* Correctly set for sticky behavior */
+    top: 0; /* Ensures it sticks to the very top */
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* NEW: Top Announcement Bar Styling */
+.top-announcement-bar {
+    background-color: #fff; /* A distinct color, e.g., purple from your logo */
+    color: #2c3e50; /* Dark text for contrast */
+    padding: 8px 0; /* Vertical padding */
+    overflow: hidden; /* Hide anything outside the container for marquee effect */
+    position: relative; /* Needed for marquee-track positioning */
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.marquee-container {
+    width: 100%; /* Occupy full width */
+    overflow: hidden; /* Hide content that flows outside */
+}
+
+.marquee-track {
+    display: flex; /* CRITICAL: Arrange items horizontally */
+    width: max-content; /* Allow the track to be as wide as its content */
+    animation: marquee-seamless 25s linear infinite; /* Adjust speed (25s) as needed */
+    animation-play-state: running; /* Ensure animation is running */
+    gap: 200px; /* This creates the space between each marquee-text-content item */
+}
+
+.marquee-text-content {
+    flex-shrink: 0; /* Prevent text items from shrinking */
+    white-space: nowrap; /* CRITICAL: Keep text on a single line */
+}
+
+@keyframes marquee-seamless {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Move by 50% of the track's width for seamless loop */
+}
+
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem; /* Add padding here for the main header content */
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box;
+}
+
+/* Logo Styling */
+.header-logo .logo-text {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #6a0dad;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.header-logo .logo-text:hover {
+    color: #8c42dc;
+}
+
+/* Navigation Styling */
+.header-nav .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2.5rem;
+}
+
+.header-nav .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.header-nav .nav-link:hover,
+.header-nav .nav-link.active {
+    color: #6a0dad;
+}
+
+/* Underline effect for nav links */
+.header-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: #6a0dad;
+    transition: width 0.3s ease;
+}
+
+.header-nav .nav-link:hover::after,
+.header-nav .nav-link.active::after {
+    width: 100%;
+}
+
+/* Action Icons Styling */
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.action-icon-button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+.action-icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #6a0dad;
+}
+
+.action-icon-button .material-icons {
+    font-size: 1.5rem;
+}
+
+/* Cart Badge Styling */
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Hamburger Menu Button (initially hidden) */
+.menu-toggle-button {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* === Responsive Design for Header === */
+@media (max-width: 992px) {
+    .header-nav {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 0.5rem;
+    }
+
+    .menu-toggle-button {
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .app-header {
+        /* Removed padding here, as it's now handled by header-content */
+    }
+
+    .header-content {
+        padding: 0.8rem 1rem; /* Adjust padding for smaller screens */
+    }
+
+    .top-announcement-bar {
+        font-size: 0.8rem; /* Smaller font for announcement on mobile */
+        padding: 6px 0;
+    }
+
+    .marquee-track {
+        animation-duration: 18s; /* Faster scroll on smaller screens */
+        gap: 100px; /* Adjust mobile spacing */
+    }
+
+    .header-logo .logo-text {
+        font-size: 1.8rem;
+    }
+
+    .action-icon-button {
+        font-size: 1.3rem;
+        padding: 0.3rem;
+    }
+    .action-icon-button .material-icons {
+        font-size: 1.3rem;
+    }
+    .menu-toggle-button {
+        font-size: 1.8rem;
+    }
+}

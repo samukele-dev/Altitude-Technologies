@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* Custom styles for the message box */
+    .message-box {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50; /* Green for success */
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .message-box.show {
+      opacity: 1;
+    }
+    .message-box.error {
+      background-color: #f44336; /* Red for error */
+    }
+
+    /* Modern Dashboard Styling */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #2d3748; /* Darker grey */
+      color: #e2e8f0; /* Light grey text */
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar-header {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #63b3ed; /* A nice blue accent */
+      text-align: center;
+    }
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      color: #cbd5e0; /* Lighter grey for links */
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .sidebar-nav a:hover {
+      background-color: #4a5568; /* Slightly lighter dark grey on hover */
+      color: #fff;
+    }
+    .sidebar-nav a.active {
+      background-color: #2C3E50; /* Blue for active link */
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .sidebar-nav .material-icons {
+      font-size: 1.5rem;
+    }
+    .main-content {
+      flex-grow: 1;
+      padding: 2rem;
+      background-color: #f7fafc; /* Very light grey */
+      overflow-y: auto;
+    }
+    .section-header {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.75rem;
+    }
+    /* Modern Product Item Styling */
+    .product-item {
+      background-color: #ffffff;
+      border-radius: 0.75rem; /* Slightly less rounded for a more compact feel */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Lighter shadow for compactness */
+      padding: 0.75rem 1rem; /* Reduced padding */
+      display: flex; /* Use flexbox for horizontal layout */
+      align-items: center;
+      gap: 1rem; /* Space between elements */
+      margin-bottom: 0.75rem; /* Reduced margin */
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      min-height: 80px; /* Set a minimum height for product items */
+    }
+    .product-item:hover {
+        transform: translateY(-2px); /* Subtle lift on hover */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+    .product-item .product-image-container {
+        width: 64px; /* Smaller image */
+        height: 64px;
+        flex-shrink: 0;
+        border-radius: 0.5rem; /* Slightly less rounded image */
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .product-item .product-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .product-item .product-details {
+        flex-grow: 1; /* Allow details to take available space */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.25rem; /* Smaller gap in details */
+    }
+    .product-item .product-name {
+        font-size: 1rem; /* Smaller font size */
+        font-weight: 600;
+        color: #2d3748;
+        white-space: nowrap; /* Prevent wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .product-item .product-meta {
+        display: flex;
+        gap: 0.75rem; /* Smaller gap for meta info */
+        font-size: 0.8rem; /* Even smaller font size */
+        color: #6b7280;
+    }
+    .product-item .edit-button {
+        background-color: #2C3E50; /* Blue for edit button */
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        flex-shrink: 0; /* Prevent button from shrinking */
+    }
+    .product-item .edit-button:hover {
+        background-color: #3182ce;
+        transform: translateY(-1px);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.show .modal-content {
+      transform: translateY(0);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 1rem;
+    }
+    .modal-header h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    .modal-close-button {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #718096;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .modal-close-button:hover {
+      color: #4a5568;
+    }
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .modal-body label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+      color: #4a5568;
+    }
+    .modal-body input[type="number"],
+    .modal-body input[type="file"] {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.4rem;
+    }
+    .modal-body .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .modal-body input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+    .modal-image-preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .modal-image-preview-container img {
+      width: 96px;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      border: 1px solid #e2e8f0;
+    }
+    .modal-footer {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    .modal-save-button {
+      background-color: #2C3E50;
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+    .modal-save-button:hover {
+      background-color: #2f855a;
+    }
+    .modal-cancel-button {
+      background-color: #e2e8f0;
+      color: #2d3748;
+      padding: 0.8rem 1.8rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+    .modal-cancel-button:hover {
+      background-color: #cbd5e0;
+    }
+
+    .order-item {
+      background-color: #ffffff;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .order-item > div {
+      flex-shrink: 0; /* Prevent children from shrinking */
+    }
+    .order-item .order-id, .order-item .customer-info, .order-item .order-total, .order-item .order-date, .order-item .order-status {
+        min-width: 100px;
+        word-break: break-all; /* Break long words */
+    }
+    .order-item .order-items-list {
+        flex-basis: 100%; /* Take full width for item list */
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px dashed #e2e8f0;
+    }
+    .order-item .order-items-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .order-item .order-items-list li {
+        font-size: 0.875rem;
+        color: #4a5568;
+        margin-bottom: 0.25rem;
+    }
+    .order-item .order-items-list li strong {
+        color: #2d3748;
+    }
+    .order-item .mark-completed-btn {
+        background-color: #2C3E50; /* Green */
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease;
+    }
+    .order-item .mark-completed-btn:hover {
+        background-color: #2f855a;
+    }
+    .logout-button {
+      background-color: #e53e3e; /* Red for logout */
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      margin-top: auto; /* Push to bottom of sidebar */
+      text-align: center;
+      transition: background-color 0.2s ease;
+    }
+    .logout-button:hover {
+      background-color: #c53030;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .dashboard-container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        padding: 1rem;
+        flex-direction: row; /* Horizontal sidebar on small screens */
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .sidebar-header {
+        display: none; /* Hide header on small screens */
+      }
+      .sidebar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .sidebar-nav a {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+      .sidebar-nav .material-icons {
+        font-size: 1.2rem;
+      }
+      .logout-button {
+        margin-top: 1rem; /* Adjust margin for horizontal layout */
+        width: auto;
+        flex-grow: 1;
+      }
+      .main-content {
+        padding: 1rem;
+      }
+      .product-item {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem;
+      }
+      .product-item .product-image-container {
+        width: 50px; /* Smaller image on mobile */
+        height: 50px;
+      }
+      .product-item .product-details {
+        align-items: flex-start; /* Align text details to start */
+        text-align: left;
+        width: 100%;
+      }
+      .product-item .product-meta {
+        justify-content: flex-start; /* Align meta info to start */
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .product-item .edit-button {
+        width: 100%; /* Full width button on mobile */
+      }
+      .modal-content {
+        width: 95%; /* Wider modal on very small screens */
+        padding: 1.5rem;
+      }
+      .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .order-item > div {
+        width: 100%; /* Full width for items on small screens */
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">Admin Panel</div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active" data-view="products">
+          <span class="material-icons">inventory_2</span> Manage Products
+        </a>
+        <a href="#" class="nav-link" data-view="pending-orders">
+          <span class="material-icons">pending_actions</span> Pending Orders
+        </a>
+        <a href="#" class="nav-link" data-view="completed-orders">
+          <span class="material-icons">check_circle</span> Completed Orders
+        </a>
+      </nav>
+      <button class="logout-button" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1 id="welcomeMsg" class="text-2xl font-semibold mb-6"></h1>
+
+      <!-- Products Management Section -->
+      <section id="products-section" class="dashboard-section">
+        <h2 class="section-header">Manage Products</h2>
+        <div class="bg-white p-4 rounded shadow mb-6">
+          <form id="uploadForm" action="http://localhost:3000/api/upload" method="POST" enctype="multipart/form-data" class="flex flex-col sm:flex-row items-center gap-4">
+            <input type="file" name="file" accept=".xlsx" required class="file-input file-input-bordered file-input-sm flex-grow" />
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow text-sm w-full sm:w-auto">Upload & Update Products</button>
+          </form>
+        </div>
+
+        <!-- Category Filter and Product List -->
+        <div class="mb-4 flex items-center gap-4">
+            <label for="categoryFilter" class="text-sm font-medium">Filter by Category:</label>
+            <select id="categoryFilter" class="border rounded px-2 py-1">
+                <option value="all">All Categories</option>
+                <option value="Laptops & Notebooks">Laptops & Notebooks</option>
+                <option value="Storage Devices">Storage Devices</option>
+                <option value="Computer Components">Computer Components</option>
+                <option value="Desktops & Workstations">Desktops & Workstations</option>
+                <option value="Peripherals & Accessories">Peripherals & Accessories</option>
+                <option value="Monitors">Monitors</option>
+                <option value="Audio">Audio</option>
+                <option value="Network Devices">Network Devices</option>
+            </select>
+        </div>
+
+        <div id="productList" class="space-y-4"></div> <!-- Increased space-y for modern cards -->
+
+        <div id="loadMoreProductsContainer" class="flex justify-center mt-6 hidden">
+            <button id="loadMoreProductsBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg shadow-md text-base">Load More Products</button>
+        </div>
+      </section>
+
+      <!-- Pending Orders Section -->
+      <section id="pending-orders-section" class="dashboard-section hidden">
+        <h2 class="section-header">Pending Orders</h2>
+        <div id="pendingOrdersList" class="space-y-2">
+          <p class="text-gray-600">No pending orders found.</p>
+        </div>
+      </section>
+
+      <!-- Completed Orders Section -->
+      <section id="completed-orders-section" class="dashboard-section hidden">
+        <h2 class="section-header">Completed Orders</h2>
+        <div id="completedOrdersList" class="space-y-2">
+          <p class="text-gray-600">No completed orders found.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Edit Product Modal -->
+  <div id="editProductModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalProductName">Edit Product</h3>
+        <button class="modal-close-button" onclick="closeEditModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="modalProductId">
+        <label>
+          Price:
+          <input type="number" id="modalPrice" step="0.01" />
+        </label>
+        <label>
+          Stock:
+          <input type="number" id="modalStock" />
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="modalOutOfStock" />
+          Out of Stock
+        </label>
+        <label>
+          Replace Image:
+          <input type="file" id="modalImage" accept="image/*" />
+        </label>
+        <div class="modal-image-preview-container">
+          <strong>Current/New Image:</strong>
+          <img id="modalImagePreview" src="https://placehold.co/96x96/cccccc/000000?text=No+Img" alt="Product Image Preview" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-cancel-button" onclick="closeEditModal()">Cancel</button>
+        <button class="modal-save-button" onclick="saveModalChanges()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="messageBox" class="message-box"></div>
+
+  <script>
+    // Global variables
+    const token = localStorage.getItem('admin_token');
+    console.log('Admin Token on page load:', token ? 'Present' : 'Not Present');
+
+    const welcomeMsg = document.getElementById('welcomeMsg');
+    const messageBox = document.getElementById('messageBox');
+    const productsSection = document.getElementById('products-section');
+    const pendingOrdersSection = document.getElementById('pending-orders-section');
+    const completedOrdersSection = document.getElementById('completed-orders-section');
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const loadMoreProductsBtn = document.getElementById('loadMoreProductsBtn');
+    const loadMoreProductsContainer = document.getElementById('loadMoreProductsContainer');
+
+    // Modal elements
+    const editProductModal = document.getElementById('editProductModal');
+    const modalProductId = document.getElementById('modalProductId');
+    const modalProductName = document.getElementById('modalProductName');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalStock = document.getElementById('modalStock');
+    const modalOutOfStock = document.getElementById('modalOutOfStock');
+    const modalImage = document.getElementById('modalImage');
+    const modalImagePreview = document.getElementById('modalImagePreview');
+
+    const PRODUCTS_PER_PAGE_ADMIN = 10; // Number of products to show per page/load
+    let allProductsData = []; // Store all fetched products
+    let currentAdminCategory = 'all'; // Current selected category filter
+    let visibleAdminProductsCount = PRODUCTS_PER_PAGE_ADMIN; // Number of products currently visible
+
+    // Function to display messages
+    function showMessage(message, isError = false) {
+      messageBox.textContent = message;
+      messageBox.className = 'message-box show'; // Reset classes
+      if (isError) {
+        messageBox.classList.add('error');
+      } else {
+        messageBox.classList.remove('error');
+      }
+      setTimeout(() => {
+        messageBox.classList.remove('show');
+      }, 3000); // Hide after 3 seconds
+    }
+
+    // Function to handle logout
+    function logout() {
+      localStorage.removeItem('admin_token');
+      showMessage('Logged out successfully. Redirecting...', false);
+      setTimeout(() => {
+        window.location.href = 'login.html'; // Or your admin login page
+      }, 1500);
+    }
+
+    // Function to show/hide sections
+    function showSection(sectionId) {
+      document.querySelectorAll('.dashboard-section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      document.getElementById(sectionId).classList.remove('hidden');
+
+      navLinks.forEach(link => {
+        if (link.dataset.view === sectionId.replace('-section', '')) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+
+      if (sectionId === 'products-section') {
+        // Reset pagination and category filter when returning to products section
+        // Note: categoryFilter.value is already updated by its own change listener if user changed it.
+        // We re-apply the current filter and reset visible count.
+        currentAdminCategory = categoryFilter.value;
+        visibleAdminProductsCount = PRODUCTS_PER_PAGE_ADMIN;
+        loadProducts();
+      } else if (sectionId === 'pending-orders-section') {
+        loadOrders('pending');
+      } else if (sectionId === 'completed-orders-section') {
+        loadOrders('completed');
+      }
+    }
+
+    // Function to fetch ALL products (used once on initial load and after Excel upload)
+    async function fetchAllProducts() {
+        console.log("fetchAllProducts function called."); // Debug log
+        try {
+            const res = await fetch('http://localhost:3000/api/products', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            console.log("fetchAllProducts API response status:", res.status); // Debug log
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(`HTTP error! Status: ${res.status}. Details: ${errorText}`);
+            }
+            const products = await res.json();
+            allProductsData = products.map(product => ({
+                ...product,
+                // Ensure category is present and trimmed, default to 'Unknown' if not
+                category: (product.category ? String(product.category).trim() : 'Unknown'),
+                // Ensure 'stock' property is correctly mapped from 'quantity' if your DB still uses 'quantity'
+                stock: product.stock !== undefined ? product.stock : product.quantity || 0,
+                imageUrl: product.images && product.images.length > 0
+                                ? `http://localhost:3000${product.images[0]}`
+                                : 'https://placehold.co/64x64/cccccc/000000?text=No+Img'
+            }));
+            console.log("All products fetched and processed:", allProductsData.length);
+            console.log("Content of allProductsData after fetch:", allProductsData); // NEW DEBUG LOG
+        } catch (err) {
+            console.error('Error fetching all products:', err);
+            showMessage('Failed to fetch all products for management: ' + err.message, true);
+            allProductsData = []; // Clear data on error
+        }
+    }
+
+    // Function to load and display products based on current filter and pagination
+    async function loadProducts() {
+        console.log("loadProducts function called."); // Debug log
+        console.log("Content of allProductsData at start of loadProducts:", allProductsData); // NEW DEBUG LOG
+        console.log("Current Category Filter:", currentAdminCategory); // NEW DEBUG LOG
+        console.log("Visible Products Count:", visibleAdminProductsCount); // NEW DEBUG LOG
+
+        const container = document.getElementById('productList');
+        container.innerHTML = '<p class="text-gray-600">Loading products...</p>'; // Show loading message
+
+        // Filter products based on current category
+        const filteredProducts = currentAdminCategory === 'all'
+            ? allProductsData
+            : allProductsData.filter(p => {
+                const trimmedProductCategory = String(p.category).trim(); // Ensure product category is trimmed
+                const trimmedCurrentAdminCategory = String(currentAdminCategory).trim(); // Ensure filter value is trimmed
+                const isMatch = trimmedProductCategory === trimmedCurrentAdminCategory;
+                console.log(`Filtering: Product Category: '${trimmedProductCategory}', Current Filter: '${trimmedCurrentAdminCategory}', Match: ${isMatch}`); // DEBUG LOG FOR FILTER
+                return isMatch;
+            });
+
+        console.log("Number of filtered products (after category filter):", filteredProducts.length);
+
+        container.innerHTML = ''; // Clear loading message
+
+        if (filteredProducts.length === 0) {
+            container.innerHTML = '<p class="text-gray-600">No products available for this category.</p>';
+            loadMoreProductsContainer.classList.add('hidden'); // Hide load more button
+            console.log("No products available message displayed."); // Debug log
+            return;
+        }
+
+        // Display only a slice of the filtered products for pagination
+        const productsToDisplay = filteredProducts.slice(0, visibleAdminProductsCount);
+        console.log("Products to display:", productsToDisplay); // NEW DEBUG LOG
+
+        productsToDisplay.forEach(product => {
+            const div = document.createElement('div');
+            div.className = 'product-item'; // Use new class for consistent styling
+
+            let displayImageUrl = 'https://placehold.co/64x64/cccccc/000000?text=No+Img'; // Default placeholder for larger image
+
+            if (product.images && product.images.length > 0) {
+                // Add a cache-busting timestamp to the image URL
+                // This forces the browser to fetch the new image even if the path is the same
+                displayImageUrl = `${product.imageUrl}?t=${new Date().getTime()}`;
+            }
+
+            console.log(`Product ID: ${product.id}, Displaying Image URL: ${displayImageUrl}`);
+
+            div.innerHTML = `
+              <div class="product-image-container">
+                <img src="${displayImageUrl}" alt="Product Image" onerror="this.onerror=null;this.src='https://placehold.co/64x64/cccccc/000000?text=No+Img';" />
+              </div>
+
+              <div class="product-details">
+                <div class="product-name" title="${product.name}">${product.name}</div>
+                <div class="product-meta">
+                    <span><strong>SKU:</strong> ${product.sku}</span>
+                    <span><strong>Category:</strong> ${product.category}</span>
+                    <span><strong>Price:</strong> R${parseFloat(product.price).toFixed(2)}</span>
+                    <span><strong>Stock:</strong> ${product.stock}</span>
+                </div>
+              </div>
+
+              <button onclick="openEditModal(${product.id})" class="edit-button">Edit</button>
+            `;
+
+            container.appendChild(div);
+          });
+
+        // Show/hide Load More button
+        if (visibleAdminProductsCount < filteredProducts.length) {
+            loadMoreProductsContainer.classList.remove('hidden');
+        } else {
+            loadMoreProductsContainer.classList.add('hidden');
+        }
+    }
+
+    // Function to open the edit modal
+    window.openEditModal = function(productId) {
+        const product = allProductsData.find(p => p.id === productId);
+        if (!product) {
+            showMessage('Product not found for editing.', true);
+            return;
+        }
+
+        modalProductId.value = product.id;
+        modalProductName.textContent = `Edit Product: ${product.name}`;
+        modalPrice.value = product.price;
+        modalStock.value = product.stock;
+        modalOutOfStock.checked = product.stock === 0;
+        modalStock.disabled = product.stock === 0; // Disable stock if out of stock
+
+        // Set current image preview
+        modalImagePreview.src = product.imageUrl;
+        modalImagePreview.classList.remove('hidden'); // Ensure it's visible
+
+        // Clear any previously selected file
+        modalImage.value = '';
+
+        // Add event listener for "Out of Stock" checkbox in modal
+        modalOutOfStock.onchange = (event) => {
+            if (event.target.checked) {
+                modalStock.value = 0;
+                modalStock.disabled = true;
+            } else {
+                modalStock.disabled = false;
+            }
+        };
+
+        // Add event listener for image input in modal to show preview
+        modalImage.onchange = (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    modalImagePreview.src = e.target.result;
+                    modalImagePreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // If no file selected, revert to current product image or placeholder
+                modalImagePreview.src = product.imageUrl || 'https://placehold.co/96x96/cccccc/000000?text=No+Img';
+            }
+        };
+
+        editProductModal.classList.add('show');
+    }
+
+    // Function to close the edit modal
+    window.closeEditModal = function() {
+        editProductModal.classList.remove('show');
+        // Clear modal form fields and image preview on close
+        modalProductId.value = '';
+        modalProductName.textContent = 'Edit Product';
+        modalPrice.value = '';
+        modalStock.value = '';
+        modalOutOfStock.checked = false;
+        modalStock.disabled = false;
+        modalImage.value = '';
+        modalImagePreview.src = 'https://placehold.co/96x96/cccccc/000000?text=No+Img';
+        modalImagePreview.classList.add('hidden');
+    }
+
+    // Function to save changes from the modal
+    window.saveModalChanges = async function () {
+        const productId = modalProductId.value;
+        const price = modalPrice.value;
+        const stockInput = modalStock;
+        const outOfStockCheckbox = modalOutOfStock;
+        const imageInput = modalImage;
+
+        let stock = parseInt(stockInput.value, 10);
+        if (outOfStockCheckbox.checked) {
+          stock = 0; // If checked, set stock to 0 regardless of input
+        }
+
+        const formData = new FormData();
+        let changesMade = false;
+
+        // Find the current product data from the `allProductsData` array
+        const currentProduct = allProductsData.find(p => p.id === parseInt(productId));
+
+        if (!currentProduct) {
+            showMessage('Product not found in local data. Please reload.', true);
+            return;
+        }
+
+        if (parseFloat(price) !== parseFloat(currentProduct.price)) {
+            formData.append('price', price);
+            changesMade = true;
+        }
+        if (parseInt(stock, 10) !== parseInt(currentProduct.stock, 10)) {
+            formData.append('stock', stock);
+            changesMade = true;
+        }
+
+        if (imageInput.files.length > 0) {
+          formData.append('image', imageInput.files[0]);
+          changesMade = true;
+        }
+
+        if (!changesMade) {
+            showMessage('No changes detected to save.', false);
+            closeEditModal(); // Close modal if no changes
+            return;
+        }
+
+        try {
+          const res = await fetch(`http://localhost:3000/api/products/${productId}`, {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'Bearer ' + token
+            },
+            body: formData
+          });
+
+          if (res.ok) {
+            showMessage('Product updated successfully!');
+            closeEditModal(); // Close modal on success
+            // Re-fetch all products and then reload the current view
+            await fetchAllProducts();
+            loadProducts();
+          } else {
+            const error = await res.text();
+            showMessage('Update failed: ' + error, true);
+          }
+        } catch (err) {
+          showMessage('Error updating product: ' + err.message, true);
+        }
+    }
+
+    // New functions for orders
+    async function loadOrders(status) {
+        const listContainer = status === 'pending' ? document.getElementById('pendingOrdersList') : document.getElementById('completedOrdersList');
+        listContainer.innerHTML = '<p class="text-gray-600">Loading orders...</p>'; // Loading message
+
+        try {
+          const res = await fetch(`http://localhost:3000/api/admin/orders/${status}`, {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+          if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`HTTP error! Status: ${res.status}. Details: ${errorText}`);
+          }
+          const orders = await res.json();
+          listContainer.innerHTML = ''; // Clear loading message
+
+          if (orders.length === 0) {
+            listContainer.innerHTML = `<p class="text-gray-600">No ${status} orders found.</p>`;
+            return;
+          }
+
+          orders.forEach(order => {
+            const div = document.createElement('div');
+            div.className = 'order-item';
+            div.innerHTML = `
+              <div class="order-id text-sm"><strong>Order ID:</strong> ${order.id}</div>
+              <div class="customer-info text-sm"><strong>Customer:</strong> ${order.customer_id}</div>
+              <div class="order-total text-sm"><strong>Total:</strong> R${parseFloat(order.total_amount).toFixed(2)}</div>
+              <div class="order-date text-sm"><strong>Date:</strong> ${new Date(order.order_date).toLocaleString()}</div>
+              <div class="order-status text-sm"><strong>Status:</strong> <span class="font-bold ${order.status === 'pending' ? 'text-orange-500' : 'text-green-600'}">${order.status.toUpperCase()}</span></div>
+              <div class="order-items-list">
+                <strong>Items:</strong>
+                <ul>
+                  ${order.items.map(item => `
+                    <li><strong>${item.name}</strong> (SKU: ${item.sku}) - Quantity: ${item.stock} - Price: R${parseFloat(item.price).toFixed(2)}</li>
+                  `).join('')}
+                </ul>
+              </div>
+              ${order.status === 'pending' ? `
+                <button onclick="markOrderCompleted(${order.id})" class="mark-completed-btn">Mark as Completed</button>
+              ` : ''}
+            `;
+            listContainer.appendChild(div);
+          });
+        } catch (err) {
+          console.error(`Error loading ${status} orders:`, err);
+          listContainer.innerHTML = `<p class="text-red-500">Failed to load ${status} orders: ${err.message}</p>`;
+        }
+    }
+
+    window.markOrderCompleted = async function (orderId) {
+        // IMPORTANT: Replaced confirm() with a custom message box for Canvas compatibility
+        showMessage(`Attempting to mark order ${orderId} as completed...`, false);
+        // For a real application, you'd implement a custom modal with Yes/No buttons
+        // For now, we'll proceed directly for demonstration purposes.
+        // In a production app, you'd pause here and wait for user confirmation from the modal.
+
+        try {
+          const res = await fetch(`http://localhost:3000/api/admin/orders/${orderId}/complete`, {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'Bearer ' + token,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (res.ok) {
+            showMessage(`Order ${orderId} marked as completed!`);
+            loadOrders('pending'); // Reload pending orders to remove the completed one
+            loadOrders('completed'); // Reload completed orders to show the new one
+          } else {
+            const error = await res.text();
+            showMessage(`Failed to mark order ${orderId} as completed: ${error}`, true);
+          }
+        } catch (err) {
+          showMessage(`Error marking order ${orderId} as completed: ${err.message}`, true);
+        }
+    }
+
+    // Event listeners for navigation links
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection(`${e.target.dataset.view}-section`);
+      });
+    });
+
+    // Event listener for category filter change
+    categoryFilter.addEventListener('change', (e) => {
+        currentAdminCategory = e.target.value;
+        visibleAdminProductsCount = PRODUCTS_PER_PAGE_ADMIN; // Reset pagination on category change
+        loadProducts();
+    });
+
+    // Event listener for "Load More Products" button
+    loadMoreProductsBtn.addEventListener('click', () => {
+        visibleAdminProductsCount += PRODUCTS_PER_PAGE_ADMIN;
+        loadProducts(); // Reload products with more visible
+    });
+
+    // Initial setup: This block runs when the script loads.
+    // It checks for the token and then proceeds to fetch and display products.
+    if (!token) {
+      showMessage('Please login first.', true);
+      setTimeout(() => {
+        window.location.href = 'register.html';
+      }, 2000); // Redirect after 2 seconds
+    } else {
+      welcomeMsg.textContent = 'Welcome admin, manage your store.';
+
+      const form = document.getElementById('uploadForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fileInput = form.querySelector('input[type="file"]');
+        if (fileInput.files.length === 0) {
+          showMessage('Please select a file.', true);
+          return;
+        }
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + token,
+              'x-api-key': 'supersecureapikey123'
+            },
+            body: formData
+          });
+
+          if (res.ok) {
+            showMessage('File uploaded successfully!');
+            fileInput.value = ''; // Clear file input
+            // After upload, re-fetch all products and reset view
+            await fetchAllProducts(); // Re-fetch all products
+            currentAdminCategory = 'all'; // Reset category filter
+            categoryFilter.value = 'all'; // Update dropdown
+            visibleAdminProductsCount = PRODUCTS_PER_PAGE_ADMIN; // Reset pagination
+            loadProducts(); // Display products
+          } else {
+            const error = await res.text();
+            showMessage('Upload failed: ' + error, true);
+          }
+        } catch (err) {
+          showMessage('Error uploading file: ' + err.message, true);
+        }
+      });
+
+      // Initial fetch and display of products when the dashboard loads successfully
+      fetchAllProducts().then(() => {
+          showSection('products-section'); // Show products section after initial fetch
+      });
+    }
+  </script>
+</body>
+</html>

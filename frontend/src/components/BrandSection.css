@@ -1,0 +1,78 @@
+/* src/components/BrandSection.css */
+
+.brands-marquee {
+    width: 100%;
+    height: 130px; /* Fixed height for the scrolling area */
+    overflow: hidden;
+    position: relative;
+}
+
+.brands-track {
+    display: flex;
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 30s linear infinite; /* Adjust duration for speed */
+}
+
+.brands-marquee:hover .brands-track {
+    animation-play-state: paused;
+}
+
+.brand-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px; /* More space between logos */
+    height: 130px;
+    min-width: 180px; /* Ensure a minimum width for each logo wrapper */
+}
+
+.brand-logo {
+    max-height: 90px; /* Slightly adjusted max height */
+    max-width: 160px;  /* Slightly adjusted max width */
+    filter: grayscale(100%); /* Grayscale by default */
+    opacity: 0.6; /* Slightly faded */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+.brand-logo:hover {
+    filter: grayscale(0%); /* Full color on hover */
+    opacity: 1; /* Full opacity on hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Keyframe animation for the horizontal scrolling */
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); } /* Moves half its total width to loop seamlessly */
+}
+
+/* --- Responsive Adjustments for brands --- */
+@media (max-width: 768px) {
+    .brands-section-container .section-title {
+        font-size: 1.4em;
+    }
+    .brand-logo-wrapper {
+        padding: 0 30px;
+        min-width: 150px;
+    }
+    .brand-logo {
+        max-height: 70px;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brands-section-container .section-title {
+        font-size: 1.2em;
+    }
+    .brand-logo-wrapper {
+        padding: 0 20px;
+        min-width: 100px;
+    }
+    .brand-logo {
+        max-height: 50px;
+        max-width: 80px;
+    }
+}

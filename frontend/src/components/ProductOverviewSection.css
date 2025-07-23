@@ -1,0 +1,664 @@
+/* src/components/ProductOverviewSection.css */
+/* Or src/styles/ProductCard.css if you want to share these styles */
+
+/* =================================================================== */
+/* General Layout & Utilities (ensure these are consistent with your global CSS) */
+/* =================================================================== */
+.bg0 {
+  background-color: #fff;
+}
+
+.p-t-23 { padding-top: 23px; }
+.p-b-140 { padding-bottom: 140px; }
+.p-b-10 { padding-bottom: 10px; } /* For section titles */
+
+.ltext-103 {
+  font-family: 'Poppins', sans-serif; /* Or your chosen font */
+  font-size: 30px;
+  line-height: 1.2;
+  color: #333;
+  text-transform: uppercase;
+  font-weight: 700; /* Assuming bold from the look */
+}
+.cl5 { color: #555; } /* Example text color */
+
+/* Flexbox utility classes (very common in frameworks) */
+.flex-c-m {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-col-l {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.flex-w {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-r {
+  display: flex;
+  justify-content: flex-end;
+}
+.flex-t {
+  align-items: flex-start;
+}
+.p-t-3 { padding-top: 3px; }
+.p-t-14 { padding-top: 14px; }
+.p-b-6 { padding-bottom: 6px; }
+
+/* General link/button styling */
+.stext-101 { /* For "Quick View" button text */
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #fff; /* Default text color for this button */
+}
+.stext-103 { /* Another text style, potentially for product name */
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px; /* Adjust as needed */
+  line-height: 1.4;
+  color: #333;
+}
+.stext-104 { /* Product Name */
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px; /* Appears larger in the image */
+  line-height: 1.2;
+  color: #333; /* Dark color for name */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  white-space: nowrap; /* Prevent name from wrapping if short */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for long names */
+  max-width: 100%; /* Ensure it respects parent width */
+}
+.stext-105 { /* Product Price */
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #555; /* Slightly lighter for price */
+}
+.cl2 { color: #333; }
+.cl3 { color: #666; }
+.cl4 { color: #333; } /* Assuming product name is dark */
+.hov-cl1:hover {
+  color: #2C3E50; /* Example hover color for text (e.g., product name) */
+}
+
+.size-101 { /* For buttons, adjust as needed */
+  min-width: 100px;
+  height: 40px;
+}
+.bg1 { background-color: #2C3E50; } /* Primary accent color for buttons */
+.bor1 { border: 1px solid #2C3E50; border-radius: 20px; } /* Rounded button borders */
+.hov-btn1:hover {
+  background-color: #333; /* Darker hover for primary button */
+  border-color: #333;
+  color: #fff;
+}
+.p-lr-15 { padding-left: 15px; padding-right: 15px; }
+.trans-04 { transition: all 0.4s ease; }
+.dis-block { display: block; }
+.pos-relative { position: relative; }
+.ab-t-l { position: absolute; top: 0; left: 0; }
+
+/* Container for the grid */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 576px) { .container { max-width: 540px; } }
+@media (min-width: 768px) { .container { max-width: 720px; } }
+@media (min-width: 992px) { .container { max-width: 960px; } }
+@media (min-width: 1200px) { .container { max-width: 1170px; } }
+
+/* Grid system */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px; /* Compensate for col padding */
+  margin-right: -15px; /* Compensate for col padding */
+}
+[class*="col-"] { /* Basic padding for all columns */
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+.p-b-35 { padding-bottom: 35px; } /* Space between rows of cards */
+
+/* Isotope Grid (If you are using Isotope.js, it manages its own layout) */
+.isotope-grid {
+    /* If Isotope.js is active, it will dynamically position children. */
+    /* Otherwise, it will behave as a standard flex-wrap grid. */
+}
+
+/* Responsive Columns */
+.col-sm-6 { flex: 0 0 50%; max-width: 50%; } /* 2 columns on small screens */
+@media (min-width: 768px) {
+  .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; } /* 3 columns on medium */
+}
+@media (min-width: 992px) {
+  .col-lg-3 { flex: 0 0 25%; max-width: 25%; } /* 4 columns on large */
+}
+/* You may need col-xs-12 or similar for extra small screens if desired */
+
+
+/* =================================================================== */
+/* Product Card (block2) Specific Styles */
+/* =================================================================== */
+.block2 {
+  background-color: #fff;
+  border-radius: 0; /* Looks like sharp corners in the image */
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 0 rgba(0,0,0,0); /* No visible shadow in image, but good to reset */
+}
+
+/* Product Image Area */
+.block2-pic {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  z-index: 1; /* Ensure button appears on top of image */
+}
+
+.block2-pic img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Object-fit: cover; if images have varying aspect ratios and you want them to fill the space */
+}
+
+/* Image Hover Effect (hov-img0) */
+/* The image itself seems to be static, and the Quick View button fades in. */
+/* If you want a slight zoom on image hover: */
+.hov-img0 img {
+  transition: transform 0.4s ease;
+}
+.block2:hover .hov-img0 img {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Quick View Button */
+.block2-btn {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for button's own size */
+  width: auto; /* Button width adjusts to content */
+  min-width: 120px; /* Example minimum width */
+  padding: 8px 20px; /* Adjust padding */
+  background-color: #fff; /* White background as per image */
+  color: #333; /* Dark text */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 25px; /* More rounded */
+  text-align: center;
+  opacity: 0; /* Hidden by default */
+  visibility: hidden; /* Hidden by default */
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 2; /* Ensure it's above the image */
+}
+
+.block2:hover .block2-btn {
+  opacity: 1;
+  visibility: visible;
+  /* If you want it to slide up slightly: */
+  /* transform: translate(-50%, -60%); */
+}
+.block2-btn:hover {
+    background-color: #2C3E50; /* Hover color for quick view button */
+    color: #fff;
+    border-color: #2C3E50;
+}
+
+
+/* Product Text Info Area */
+.block2-txt {
+  padding: 10px 10px 15px; /* Top Right Bottom Left - Adjust padding around text */
+  display: flex; /* Makes name and price on left, heart on right */
+  justify-content: space-between; /* Pushes children to ends */
+  align-items: flex-start; /* Align name/price to top */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.block2-txt-child1 {
+  flex-grow: 1; /* Takes up available space */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 10px; /* Space between text and heart icon */
+}
+
+.js-name-b2 { /* Target the product name link */
+  display: block; /* Ensure it takes full width for text-overflow */
+}
+
+/* Product Price */
+.js-price-b2 {
+  display: block;
+}
+
+.block2-txt-child2 {
+  flex-shrink: 0; /* Prevents shrinking */
+  display: flex;
+  align-items: center; /* Vertically center heart icon */
+  padding-top: 0; /* Remove default padding from utility class */
+}
+
+/* Wishlist Heart Icon */
+.btn-addwish-b2 {
+  display: block;
+  position: relative;
+  width: 24px; /* Size of the heart icon */
+  height: 24px; /* Size of the heart icon */
+  line-height: 1; /* Remove extra line height */
+  font-size: 0; /* Hide any default text inside a tag */
+}
+
+.icon-heart1,
+.icon-heart2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure icon scales properly */
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.icon-heart1 {
+  opacity: 1; /* Default state: outline heart visible */
+}
+
+.icon-heart2 {
+  opacity: 0; /* Default state: filled heart hidden */
+}
+
+/* Hover effect for wishlist (toggle heart icon) */
+.btn-addwish-b2.js-addwish-b2:hover .icon-heart1 {
+  opacity: 0; /* Hide outline heart on hover */
+}
+.btn-addwish-b2.js-addwish-b2:hover .icon-heart2 {
+  opacity: 1; /* Show filled heart on hover */
+}
+
+/* If you have a 'wishlisted' state (e.g., class 'active' on btn-addwish-b2) */
+/* .btn-addwish-b2.active .icon-heart1 { opacity: 0; } */
+/* .btn-addwish-b2.active .icon-heart2 { opacity: 1; } */
+
+
+/* =================================================================== */
+/* Category Section Specific Styles (if separate) */
+/* =================================================================== */
+/* These would typically be in CategorySection.css */
+.product-overview-section-container {
+    padding-top: 50px; /* Adjust overall section padding */
+    padding-bottom: 50px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px; /* Space below title */
+}
+
+.product-filters-sort {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    margin-bottom: 30px; /* Space below filters */
+    padding: 10px 0;
+    border-bottom: 1px solid #eee; /* Separator */
+}
+
+.product-categories-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between category links */
+}
+
+.category-link {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.category-link.active {
+    color: #2C3E50; /* Highlight active category */
+    border-bottom: 2px solid #2C3E50;
+}
+
+.category-link:hover {
+    color: #2C3E50;
+}
+
+.dropdown-arrow {
+    margin-left: 5px;
+    font-size: 0.8em;
+}
+
+.product-actions-buttons {
+    display: flex;
+    gap: 15px; /* Space between filter/search buttons */
+}
+
+.action-button {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: #f5f5f5;
+    border-color: #aaa;
+}
+
+.action-button .material-icons {
+    font-size: 20px; /* Adjust icon size */
+}
+
+/* =================================================================== */
+/* Quick View Modal Styles (as provided previously) */
+/* =================================================================== */
+/* This section should mostly be identical to what I provided for ProductOverviewSection.css previously. */
+/* Just ensure it's present in your CSS file. */
+
+.wrap-modal1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.show-modal1 {
+  opacity: 1;
+  visibility: visible;
+}
+
+.overlay-modal1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.respon3 {
+  width: 90%;
+  max-width: 1000px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  padding: 27px 15px; /* Consistent padding */
+}
+
+@media (min-width: 768px) {
+  .respon3 {
+    padding: 30px; /* More padding on larger screens */
+  }
+}
+
+.p-l-25 { padding-left: 25px; }
+.p-r-50 { padding-right: 50px; }
+.p-t-5 { padding-top: 5px; }
+
+.mtext-105 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #333;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.p-b-14 { padding-bottom: 14px; }
+.mtext-106 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #333;
+  font-weight: 600;
+}
+.stext-102 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #777;
+}
+.p-t-33 { padding-top: 33px; }
+.p-b-10 { padding-bottom: 10px; }
+
+/* New/Adjusted Utility for Stock Text Color */
+.cl1 { color: #008000; /* Green for in-stock */ }
+.cl0 { color: #FF0000; /* Red for out-of-stock, or a disabled look */ }
+
+
+/* =================================================================== */
+/* Quick View Modal Styles - Section to Update/Add */
+/* =================================================================== */
+
+.wrap-modal1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.show-modal1 {
+  opacity: 1;
+  visibility: visible;
+}
+
+.overlay-modal1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.bg0 { background-color: #fff; }
+.p-lr-15 { padding-left: 15px; padding-right: 15px; }
+.p-tb-27 { padding-top: 27px; padding-bottom: 27px; } /* Use for overall modal content padding */
+
+.respon3 {
+  width: 90%;
+  max-width: 1000px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  /* Adjust padding as needed for inner content */
+  padding: 30px; /* Example: more generous padding inside modal */
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.col-md-6, .col-lg-7, .col-lg-5 {
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+}
+@media (min-width: 992px) {
+  .col-lg-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+  .col-lg-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+}
+
+.p-b-30 { padding-bottom: 30px; }
+.p-l-25 { padding-left: 25px; }
+.p-lr-0-lg { /* Adjust for larger screens - e.g., reset padding for lg breakpoint */ }
+
+.p-r-50 { padding-right: 50px; }
+.p-t-5 { padding-top: 5px; }
+
+.mtext-105 { /* Modal Title */
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #333;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.p-b-14 { padding-bottom: 14px; }
+.mtext-106 { /* Modal Price/Stock */
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #333;
+  font-weight: 600;
+}
+.stext-102 { /* Modal Description */
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #777;
+}
+
+.p-t-23 { padding-top: 23px; }
+.p-t-33 { padding-top: 33px; }
+
+/* ... other CSS ... */
+
+/* Quantity Selector Styles */
+.wrap-num-product {
+  width: 120px; /* Fixed width for the quantity input group */
+  display: flex;
+  border: 1px solid #e6e6e6; /* Light gray border */
+  border-radius: 5px; /* Slightly rounded corners */
+  overflow: hidden;
+}
+
+.btn-num-product-down,
+.btn-num-product-up {
+  width: 33.33%;
+  height: 40px;
+  background-color: #f8f8f8;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.btn-num-product-down:hover,
+.btn-num-product-up:hover {
+  background-color: #e6e6e6;
+  color: #555;
+}
+
+.num-product {
+  width: 33.33%;
+  height: 40px;
+  border: none;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  -moz-appearance: textfield; /* Hide arrows in Firefox */
+}
+
+.num-product::-webkit-outer-spin-button,
+.num-product::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Hide arrows in Chrome, Safari */
+  margin: 0;
+}
+
+/* Adjustments for spacing */
+.m-r-20 { margin-right: 20px; }
+.m-tb-10 { margin-top: 10px; margin-bottom: 10px; }
+
+.size-204 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px; /* Space between quantity and add to cart button */
+}
+
+/* Add to Cart button in modal */
+.stext-101.cl0.size-101.bg1.bor1.hov-btn1.p-lr-15.trans-04 {
+    flex-grow: 1;
+    max-width: 200px; /* Example max width */
+    height: 40px;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.stext-101.cl0.size-101.bg1.bor1.hov-btn1.p-lr-15.trans-04:disabled {
+    background-color: #cccccc;
+    border-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Disabled states for quantity buttons/input */
+.wrap-num-product .btn-num-product-down[disabled],
+.wrap-num-product .btn-num-product-up[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.wrap-num-product .num-product[disabled] {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.btn-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #aaa;
+  transition: color 0.3s;
+  padding: 0;
+  line-height: 1;
+}
+.btn-close-modal:hover {
+  color: #333;
+}

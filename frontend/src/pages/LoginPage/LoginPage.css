@@ -1,0 +1,172 @@
+/* src/pages/LoginPage/LoginPage.css */
+
+/* Login Message Styles */
+.login-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.login-message.error {
+    background-color: #ffe0e0;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+}
+
+.login-message.success {
+    background-color: #e0ffe0;
+    color: #008000;
+    border: 1px solid #008000;
+}
+
+/* Login Page Styles */
+.login-page-container {
+    display: flex; /* Use flexbox for the two-sided layout */
+    min-height: 100vh; /* Take full viewport height */
+    width: 100%;
+    /* You might want to remove padding from App.css global container if it interferes */
+}
+
+.login-left-side {
+    flex: 1; /* Takes up 1 part of the available space */
+    background-color: #f0f2f5; /* Light background for the left side */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+.login-page-title {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.login-page-slogan {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 400px;
+}
+
+.login-image {
+    max-width: 80%; /* Adjust size as needed */
+    height: auto;
+    border-radius: 8px; /* Optional: subtle rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+.login-right-side {
+    flex: 1; /* Takes up 1 part of the available space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    background-color: #fff; /* White background for the right side */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for the form area */
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px; /* Max width for the form itself */
+    padding: 30px;
+    border-radius: 8px;
+    /* Removed background-color: #fff; as parent already has it */
+}
+
+.login-form h2 {
+    font-size: 2em;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Crucial for full width with padding */
+}
+
+.login-error {
+    color: #ff0000;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #2C3E50; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #5d6edc; /* Darker shade on hover */
+}
+
+.signup-link {
+    margin-top: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.signup-link a {
+    color: #2C3E50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-page-container {
+        flex-direction: column; /* Stack vertically on smaller screens */
+    }
+
+    .login-left-side,
+    .login-right-side {
+        flex: none; /* Remove flex grow */
+        width: 100%;
+        min-height: auto; /* Allow height to adjust */
+    }
+
+    .login-left-side {
+        padding-top: 20px; /* Adjust padding for smaller screens */
+        padding-bottom: 20px;
+    }
+
+    .login-right-side {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}

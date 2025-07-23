@@ -1,0 +1,66 @@
+/* src/pages/ActivationPage/ActivationPage.css */
+
+.activation-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Adjust as needed */
+    background-color: #f8f8f8;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.activation-content {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.activation-content h2 {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.activation-message {
+    font-size: 1.1em;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.activation-message.success {
+    background-color: #e6ffe6;
+    color: #008000;
+    border: 1px solid #008000;
+}
+
+.activation-message.error {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+}
+
+.activation-login-link,
+.activation-register-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #2C3E50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.activation-login-link:hover,
+.activation-register-link:hover {
+    background-color: #5d6edc;
+}

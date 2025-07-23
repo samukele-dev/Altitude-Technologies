@@ -1,0 +1,315 @@
+/* src/pages/OrderConfirmationPage/OrderConfirmationPage.css */
+
+.order-confirmation-page-container {
+    padding: 40px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.order-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.order-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.order-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Base style for all form sections */
+.order-form .form-section {
+    background-color: #fff;
+    padding: 30px;
+    margin-bottom: 30px; /* Default margin for single column sections or when stacked */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.form-section h3 {
+    font-size: 22px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #66afe9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(102,175,233,.6);
+}
+
+.form-group-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.checkbox-group input {
+    margin-right: 10px;
+    width: auto;
+    height: auto;
+}
+
+/* New Grid Layout for Shipping/Billing and Payment */
+.checkout-form-grid {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+/* Apply flex property to the column wrappers */
+.address-column, /* This wraps both shipping and billing now */
+.payment-method-section {
+    flex: 1;
+    margin-bottom: 0; /* Remove default margin when part of flex */
+}
+
+/* Specific styling for the billing sub-section if it's visually distinct */
+.billing-address-sub-section {
+    margin-top: 30px; /* Space between shipping and billing if on the same column */
+    padding-top: 25px;
+    border-top: 1px dashed #eee; /* Visual separator */
+}
+
+
+/* Payment Methods */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 10px;
+    width: auto;
+    height: auto;
+}
+
+.credit-card-details {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.payment-info-redirect {
+    font-style: italic;
+    color: #666;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Final Order Summary */
+.order-summary-final {
+    padding: 30px;
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    box-shadow: none;
+}
+
+.summary-items {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.summary-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+}
+
+.summary-name {
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+.summary-quantity {
+    color: #777;
+    font-size: 14px;
+}
+
+.summary-price {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.summary-totals .total-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-totals .total-line span:first-child {
+    font-weight: bold;
+}
+
+.summary-totals .grand-total-final {
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+    margin-top: 15px;
+}
+
+.place-order-btn {
+    display: block;
+    width: 100%;
+    padding: 18px 25px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    margin-top: 40px;
+}
+
+.place-order-btn:hover:not(:disabled) {
+    background-color: #555;
+}
+
+.place-order-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Empty cart message */
+.checkout-loading {
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
+    color: #666;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .checkout-form-grid {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .address-column, /* Both shipping and billing within this */
+    .payment-method-section {
+        margin-bottom: 30px; /* Restore margin when stacked */
+    }
+
+    .order-confirmation-page-container {
+        padding: 20px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+
+    .form-group-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-group-row .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group-row .form-group:last-child {
+        margin-bottom: 0;
+    }
+
+    .payment-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .place-order-btn {
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+}

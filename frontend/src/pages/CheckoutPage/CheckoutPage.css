@@ -1,0 +1,319 @@
+/* src/pages/CheckoutPage/CheckoutPage.css */
+
+.checkout-page-container {
+    padding: 40px 80px; /* Adjust padding as needed */
+    max-width: 1200px; /* Max width to center content */
+    margin: 0 auto;
+    font-family: Arial, sans-serif; /* Use your project's font */
+    color: #333;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.checkout-content {
+    display: flex;
+    gap: 40px; /* Space between the two main columns */
+}
+
+.checkout-products-section {
+    flex: 2; /* Takes up more space */
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Soft shadow */
+}
+
+.product-table th,
+.product-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.product-table th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.product-thumbnail {
+    width: 70px; /* Adjust size */
+    height: 70px; /* Adjust size */
+    object-fit: contain;
+    border: 1px solid #eee;
+}
+
+.product-name {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    width: 100px; /* Fixed width for consistency */
+    justify-content: space-between;
+}
+
+.quantity-btn {
+    background-color: #f5f5f5;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+    transition: background-color 0.2s;
+}
+
+.quantity-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.quantity-controls span {
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+/* Coupon Section */
+.coupon-section {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Align to the right as in the image */
+    padding-top: 20px;
+    border-top: 1px solid #eee; /* Separator from table */
+}
+
+.coupon-input {
+    flex-grow: 1; /* Allows it to take available space */
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    max-width: 200px; /* Limit input width */
+}
+
+.coupon-apply-btn,
+.update-cart-btn {
+    padding: 10px 20px;
+    background-color: #333; /* Dark background for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.coupon-apply-btn:hover,
+.update-cart-btn:hover,
+.update-totals-btn:hover,
+.proceed-to-checkout-btn:hover {
+    background-color: #555; /* Darker on hover */
+}
+
+
+/* Right Section: Cart Totals */
+.cart-totals-section {
+    flex: 1; /* Takes up less space */
+    border: 1px solid #eee; /* Light border */
+    background-color: #f8f8f8; /* Light grey background */
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Soft shadow */
+}
+
+.cart-totals-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ddd; /* Dashed line separator */
+}
+
+.total-row span:first-child {
+    font-weight: bold;
+}
+
+.total-row.grand-total {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc; /* Stronger line for grand total */
+    border-bottom: none; /* No bottom border for grand total */
+}
+
+.shipping-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.shipping-section h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.shipping-message {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.calculate-shipping-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.shipping-select,
+.shipping-input {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.update-totals-btn {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.proceed-to-checkout-btn {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #333; /* Use your primary button color */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 30px;
+}
+
+
+/* Responsive adjustments (optional, but good practice) */
+@media (max-width: 992px) {
+    .checkout-content {
+        flex-direction: column; /* Stack columns on smaller screens */
+    }
+
+    .checkout-products-section,
+    .cart-totals-section {
+        flex: auto; /* Allow them to take full width */
+    }
+
+    .coupon-section {
+        justify-content: flex-start; /* Stack buttons on smaller screens */
+        flex-wrap: wrap;
+    }
+
+    .coupon-input {
+        max-width: none; /* Allow full width */
+    }
+}
+
+@media (max-width: 768px) {
+    .checkout-page-container {
+        padding: 20px;
+    }
+
+    .product-table th,
+    .product-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .product-thumbnail {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-table thead {
+        display: none; /* Hide table headers on very small screens */
+    }
+
+    .product-table,
+    .product-table tbody,
+    .product-table tr,
+    .product-table td {
+        display: block; /* Make table elements act like block elements */
+        width: 100%;
+    }
+
+    .product-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        padding: 10px;
+    }
+
+    .product-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .product-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        text-align: left;
+        font-weight: bold;
+        color: #555;
+    }
+    .product-item-row td:nth-of-type(1)::before { content: "Product:"; }
+    .product-item-row td:nth-of-type(2)::before { content: "Price:"; }
+    .product-item-row td:nth-of-type(3)::before { content: "Quantity:"; }
+    .product-item-row td:nth-of-type(4)::before { content: "Total:"; }
+
+    .product-info {
+        justify-content: flex-end; /* Align product info to right with label */
+    }
+}

@@ -1,0 +1,277 @@
+/* src/components/CategorySection.css */
+
+/* --- General E-commerce Page Layout --- */
+.ecommerce-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Open Sans', sans-serif;
+    color: #344767;
+}
+
+.section-title {
+    font-size: 2.2em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #344767;
+}
+
+.main-category-title {
+    margin-top: 60px;
+}
+
+.main-content-wrapper {
+    padding: 20px 0;
+}
+
+
+/* --- Category Section Styles --- */
+.category-section-container {
+    padding: 20px 0;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.category-card {
+    background-color: #ffffff; /* This will be covered by the image/overlay */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative; /* VERY IMPORTANT: For absolute positioning of image and overlay */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px; /* Consistent height for cards */
+    justify-content: flex-end; /* Align content to the bottom of the card */
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.category-image {
+    position: absolute; /* Position the image to cover the entire card */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the area, cropping if necessary */
+    display: block;
+    z-index: 1; /* Place it behind the info and overlay but above card background */
+    transition: transform 0.3s ease-in-out; /* Smooth scale on overlay hover */
+}
+
+.category-card:hover .category-image {
+    transform: scale(1.05); /* Slight zoom effect when card is hovered */
+}
+
+.category-info {
+    position: relative; /* Ensures text is above the image */
+    z-index: 3; /* Place it above the image and the initial overlay */
+    padding: 20px;
+    text-align: left;
+    color: #fff; /* Make text white for contrast against dark image/overlay */
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); /* Fades from dark at bottom to transparent at top */
+    /* Adjust padding-bottom if needed to give more space below text */
+}
+
+.category-name {
+    font-size: 1.4em;
+    font-weight: 700; /* Make it bolder for readability */
+    margin-bottom: 8px;
+    color: #fff; /* Ensure name is white */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Subtle shadow for readability */
+}
+
+.category-slogan {
+    font-size: 0.95em;
+    color: #e0e0e0; /* Lighter white for slogan */
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Subtle shadow for readability */
+}
+
+/* Overlay for "SHOP NOW" */
+.category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* Allows clicks to pass through when hidden */
+    z-index: 2; /* Place it between the image and the info text */
+}
+
+.category-card:hover .category-overlay {
+    opacity: 1; /* Visible on hover */
+    pointer-events: auto; /* Re-enable pointer events on hover */
+    z-index: 4; /* Bring it to the front when hovered, above info text */
+    /* Also, hide the info text when overlay is active */
+}
+
+.category-card:hover .category-info {
+    opacity: 0; /* Hide info text when overlay is visible */
+    transition: opacity 0.3s ease-in-out;
+}
+
+
+.shop-now-text {
+    color: #fff;
+    font-size: 1.3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.shop-now-text:hover {
+    background-color: #fff;
+    color: #6a0dad; /* Text color changes on hover */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ecommerce-page-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .category-card {
+        min-height: 300px; /* Adjust min-height for smaller screens if needed */
+    }
+}
+
+/* Styles for the brands section (moved here for completeness if you decide to merge CSS later) */
+/* These styles should still reside in BrandSection.css if you keep it separate */
+/* As per our last conversation, BrandSection.css should still be a separate file.
+   However, if you've put all styles into CategorySection.css, then these would go here: */
+/*
+.brands-section-container {
+    padding: 30px 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    margin-top: 50px; // Adjusted margin to be below categories
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+.brands-section-container .section-title {
+    font-size: 1.6em;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #586780;
+    font-weight: 600;
+}
+
+.brands-marquee {
+    width: 100%;
+    height: 130px;
+    overflow: hidden;
+    position: relative;
+}
+
+.brands-track {
+    display: flex;
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 30s linear infinite;
+}
+
+.brands-marquee:hover .brands-track {
+    animation-play-state: paused;
+}
+
+.brand-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+    height: 130px;
+    min-width: 180px;
+}
+
+.brand-logo {
+    max-height: 90px;
+    max-width: 160px;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+}
+
+.brand-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+    .brands-section-container .section-title {
+        font-size: 1.4em;
+    }
+    .brand-logo-wrapper {
+        padding: 0 30px;
+        min-width: 150px;
+    }
+    .brand-logo {
+        max-height: 70px;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brands-section-container .section-title {
+        font-size: 1.2em;
+    }
+    .brand-logo-wrapper {
+        padding: 0 20px;
+        min-width: 100px;
+    }
+    .brand-logo {
+        max-height: 50px;
+        max-width: 80px;
+    }
+}
+*/

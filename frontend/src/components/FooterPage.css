@@ -1,0 +1,228 @@
+/* src/components/FooterPage.css */
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* src/components/FooterPage.css */
+
+.footer-container {
+    background-color: #2c3e50; /* Dark background matching header */
+    color: #ecf0f1; /* Light text color */
+    padding: 3rem 2rem;
+    font-family: 'Inter', sans-serif;
+    border-top: 5px solid #6a0dad; /* Accent line matching logo */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap; /* Allow sections to wrap on smaller screens */
+    justify-content: space-between;
+    max-width: 1280px;
+    margin: 0 auto;
+    gap: 2rem; /* Space between sections */
+}
+
+.footer-section {
+    flex: 1; /* Allow sections to grow and shrink */
+    min-width: 220px; /* Minimum width before wrapping */
+    margin-bottom: 1.5rem; /* Space below each section before bottom line */
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #6a0dad; /* Purple from your logo */
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #bdc3c7; /* Slightly darker grey for description */
+}
+
+.footer-section h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.footer-section h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px; /* Short underline */
+    height: 3px;
+    background-color: #6a0dad; /* Accent color */
+    border-radius: 2px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-section ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #6a0dad; /* Accent color on hover */
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    color: #bdc3c7;
+}
+
+.contact-info p i {
+    margin-right: 10px;
+    color: #6a0dad; /* Accent color for icons */
+    font-size: 1.1rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-icons a {
+    color: #ecf0f1;
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+    color: #6a0dad; /* Accent color on hover */
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #bdc3c7;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-bottom p {
+    margin: 0.5rem 0;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.8rem; /* Larger icons for payment methods */
+    color: #ecf0f1;
+}
+
+.payment-methods i {
+    transition: color 0.3s ease;
+}
+
+.payment-methods i:hover {
+    color: #6a0dad; /* Accent color on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        min-width: unset; /* Remove min-width on small screens */
+        width: 100%; /* Take full width */
+        margin-bottom: 2rem;
+    }
+
+    .footer-section h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-container {
+        padding: 2rem 1rem;
+    }
+
+    .footer-logo {
+        font-size: 1.5rem;
+    }
+
+    .footer-section h4 {
+        font-size: 1.1rem;
+    }
+
+    .footer-section ul li a,
+    .contact-info p,
+    .footer-bottom p {
+        font-size: 0.85rem;
+    }
+
+    .social-icons a {
+        font-size: 1.3rem;
+    }
+
+    .payment-methods {
+        font-size: 1.5rem;
+    }
+}

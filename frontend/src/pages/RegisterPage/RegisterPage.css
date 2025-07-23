@@ -1,0 +1,161 @@
+/* src/pages/RegisterPage/RegisterPage.css */
+
+.register-page-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.register-left-side {
+    flex: 1;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.register-page-title {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.register-page-slogan {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 400px;
+}
+
+.register-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.register-right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.register-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.register-form h2 {
+    font-size: 2em;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.register-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.register-message.error {
+    background-color: #ffe0e0;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+}
+
+.register-message.success {
+    background-color: #e0ffe0;
+    color: #008000;
+    border: 1px solid #008000;
+}
+
+.register-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #2C3E50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #5d6edc;
+}
+
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.login-link a {
+    color: #2C3E50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .register-page-container {
+        flex-direction: column;
+    }
+
+    .register-left-side,
+    .register-right-side {
+        flex: none;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .register-left-side {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .register-right-side {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
