@@ -60,7 +60,7 @@
 .header-logo .logo-text {
     font-size: 2.2rem;
     font-weight: 900;
-    color: #6a0dad;
+    color: #ffff;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -90,7 +90,7 @@
 
 .header-nav .nav-link:hover,
 .header-nav .nav-link.active {
-    color: #6a0dad;
+    color: #ffff;
 }
 
 /* Underline effect for nav links */
@@ -101,7 +101,7 @@
     bottom: -5px;
     width: 0;
     height: 3px;
-    background-color: #6a0dad;
+    background-color: #ffff;
     transition: width 0.3s ease;
 }
 
@@ -133,7 +133,7 @@
 
 .action-icon-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    color: #6a0dad;
+    color: #ffff;
 }
 
 .action-icon-button .material-icons {

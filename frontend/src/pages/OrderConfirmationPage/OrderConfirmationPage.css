@@ -40,7 +40,7 @@
     transform: translateX(-50%);
     width: 70px; /* Slightly narrower */
     height: 3px; /* Thinner */
-    background-color: #6a0dad;
+    background-color: #ffff;
     border-radius: 2px;
 }
 
@@ -137,7 +137,7 @@
 }
 
 .form-group input:focus {
-    border-color: #6a0dad;
+    border-color: #ffff;
     box-shadow: 0 0 0 0.2rem rgba(106, 13, 173, 0.2); /* Lighter shadow */
     outline: none;
 }
@@ -165,7 +165,7 @@
     margin-right: 0.6rem; /* Reduced margin */
     width: 16px; /* Slightly smaller */
     height: 16px; /* Slightly smaller */
-    accent-color: #6a0dad;
+    accent-color: #ffff;
 }
 
 /* Payment Options Grid (New Layout) */
@@ -202,7 +202,7 @@
 }
 
 .payment-option-card.active {
-    border-color: #6a0dad; /* Accent color for active */
+    border-color: #ffff; /* Accent color for active */
     background-color: #f0e6fa; /* Lighter accent background */
     box-shadow: 0 4px 12px rgba(106, 13, 173, 0.2);
     transform: translateY(-2px);
@@ -218,7 +218,7 @@
 .payment-icon {
     font-size: 2rem; /* Larger icons */
     margin-bottom: 0.5rem; /* Space between icon and text */
-    color: #6a0dad; /* Purple accent for icons */
+    color: #ffff; /* Purple accent for icons */
 }
 
 .payment-icon-img {
@@ -444,7 +444,7 @@
 .place-order-btn {
     width: 100%;
     padding: 1rem; /* Reduced padding */
-    background-color: #6a0dad;
+    background-color: #ffff;
     color: #fff;
     border: none;
     border-radius: 10px;

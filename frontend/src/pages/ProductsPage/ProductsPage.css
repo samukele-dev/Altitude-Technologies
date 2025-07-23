@@ -236,7 +236,7 @@ body {
 .product-card-price {
     font-size: 1.3rem; /* Slightly larger price */
     font-weight: 700;
-    color: #6a0dad; /* Purple accent for price */
+    color: #ffff; /* Purple accent for price */
     margin-top: auto;
     margin-bottom: 1rem; /* Space above actions */
 }
