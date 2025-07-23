@@ -147,7 +147,7 @@ body {
 .product-card-price {
     font-size: 1.3rem; /* Slightly larger price */
     font-weight: 700;
-    color: #ffff; /* Purple accent for price */
+    color: #2c3e50; /* Purple accent for price */
     margin-top: auto;
     margin-bottom: 1rem; /* Space above actions */
     display: flex; /* Allow original price to sit next to it */
@@ -157,7 +157,7 @@ body {
 
 .product-card-price .original-price {
     font-size: 0.9em; /* Smaller for original price */
-    color: #888; /* Lighter color for original price */
+    color: #2c3e50; /* Lighter color for original price */
     text-decoration: line-through; /* Strikethrough for original price */
     font-weight: 400; /* Lighter weight */
 }
